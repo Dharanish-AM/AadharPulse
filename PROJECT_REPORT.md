@@ -92,7 +92,13 @@ $$ UBI = \frac{\text{Total Updates}}{\text{Total Enrolments} + 1} $$
 *   **Anomaly Detection:** Rolling Window Z-score (Threshold > 3 sigma).
 *   **Forecasting:** Meta's Prophet model for seasonality-aware predictions.
 
-<div style="page-break-after: always;"><images/dataset_overview.png)
+
+## 6. Data Analysis and Visualisation
+
+<div style="page-break-after: always;"></div>
+
+**Figure 1: Dataset Overview**
+![Dataset Overview](images/dataset_overview.png)
 
 **Figure 2: Monthly Total Updates Trend**
 ![Enrolment vs Updates](images/enrolment_vs_updates.png)
@@ -101,7 +107,10 @@ $$ UBI = \frac{\text{Total Updates}}{\text{Total Enrolments} + 1} $$
 *   **Time Coverage:** Enrolment data extends to Dec 2025, while updates are available until Oct 2025.
 *   **Volatility:** Update volumes show significantly higher month-to-month volatility compared to steady enrolments.
 
-<div style="page-break-after: always;"><images/top10_enrolment.png)
+<div style="page-break-after: always;"></div>
+
+**Figure 3: Top 10 States by Enrolment**
+![Top 10 States Enrolment](images/top10_enrolment.png)
 
 **Figure 4: Top 10 States by Total Updates**
 ![Top 10 States Updates](images/top10_updates.png)
@@ -110,7 +119,10 @@ $$ UBI = \frac{\text{Total Updates}}{\text{Total Enrolments} + 1} $$
 *   **UP Dominance:** Uttar Pradesh consistently ranks highest in both enrolments and updates due to population size.
 *   **Activity Split:** Major states dominate total volume, necessitating state-specific resource planning.
 
-<div style="page-break-after: always;"><images/age_stacked.png)
+<div style="page-break-after: always;"></div>
+
+**Figure 5: Age-wise Enrolment Stacked Bar**
+![Age Stacked](images/age_stacked.png)
 
 **Figure 6: Monthly Age-Group Trend**
 ![Age Trend Monthly](images/age_trend.png)
@@ -121,7 +133,7 @@ $$ UBI = \frac{\text{Total Updates}}{\text{Total Enrolments} + 1} $$
 
 <div style="page-break-after: always;"></div>
 
-### 6.4 UBI Analysis (Strategic Metric)
+### 6.1 UBI Analysis (Strategic Metric)
 
 **Figure 7: Top 10 States by UBI**
 ![Top 10 States by UBI](images/top10_ubi.png)
@@ -133,14 +145,17 @@ $$ UBI = \frac{\text{Total Updates}}{\text{Total Enrolments} + 1} $$
 *   **Update-Heavy:** High UBI states function as maintenance hubs.
 *   **Prioritization:** Infrastructure in high-UBI zones should focus on efficiency and queue management for updates.
 
-<div style="page-break-after: always;"><images/top10_districts.png)
+<div style="page-break-after: always;"></div>
+
+**Figure 9: Top 10 Districts**
+![Top 10 Districts](images/top10_districts.png)
 
 **Insights:**
 *   **Micro-Hotspots:** Reveals specific districts that bear disproportionate load, ideal candidates for new permanent ASKs.
 
 <div style="page-break-after: always;"></div>
 
-### 6.6 Anomaly Detection
+### 6.2 Anomaly Detection
 
 **Figure 10: Anomaly Plot (Monthly Updates)**
 ![Anomaly Detection Plot](images/anomaly_plot.png)
@@ -158,7 +173,7 @@ $$ UBI = \frac{\text{Total Updates}}{\text{Total Enrolments} + 1} $$
 
 <div style="page-break-after: always;"></div>
 
-### 6.7 Forecasting (Predictive Indicator)
+### 6.3 Forecasting (Predictive Indicator)
 
 **Figure 11: Forecast of Total Updates (Next 3 Months)**
 ![Forecast Plot](images/forecast.png)
@@ -196,7 +211,7 @@ Based on the Aadhaar Pulse analysis, we propose the following strategic actions:
 
 <div style="page-break-after: always;"></div>
 
-<div style="page-break-after: always;"></div>
+
 
 ## 10. Code Appendix: Full Notebook Execution Log
 
@@ -562,38 +577,4 @@ print(forecast[["ds", "yhat", "yhat_lower", "yhat_upper"]].tail(3))
     11 2026-02-28  1.637795e+07  1.254499e+07  2.081563e+07
 
 
-
-```python
-
-# --- NEW ANALYSES ---
-
-# ### 5.6 Top 10 States by Total Updates
-# **Visualisation 6B: Top 10 States by Update Activity** 
-state_updates = ubi_df.groupby("state")["total_updates"].sum().sort_values(ascending=False).head(10)
-plt.figure(figsize=(10, 6))
-sns.barplot(x=state_updates.values, y=state_updates.index, palette="rocket")
-plt.title("Top 10 States by Total Updates (Demographic + Biometric)")
-plt.xlabel("Total Updates")
-plt.show()
-
-# ### 5.7 District Drill-Down
-# **Visualisation 10: Top 10 Districts by Enrolment**
-dist_enrol = enrol_df.groupby("district")["total_enrolments"].sum().sort_values(ascending=False).head(10)
-plt.figure(figsize=(10, 6))
-sns.barplot(x=dist_enrol.values, y=dist_enrol.index, palette="mako")
-plt.title("Top 10 Districts by Total Enrolments (Hotspots)")
-plt.xlabel("Enrolments")
-plt.show()
-```
-
-
-    
-![png](images/aadhaar_pulse_final_27_0.png)
-    
-
-
-
-    
-![png](images/aadhaar_pulse_final_27_1.png)
-    
 
